@@ -265,7 +265,7 @@ if tblua:IsInWorld() == true then
                                     tblua:Sleep(2000)
                                     tblua:PressKey(0x46)
                                     tblua:Sleep(27000)
-                                    i = i + 1
+                                    i = i + 2
                                     --Check if caught 1
                                     if tblua:IsInFight() == false then
                                         --Release
@@ -286,7 +286,7 @@ if tblua:IsInWorld() == true then
                                             tblua:Sleep(1000)
                                             tblua:PressKey(0x46)
                                             tblua:Sleep(27000)
-                                            i = i + 1
+                                            i = i + 2
                                         elseif tblua:IsInFight() == false then
                                             if tblua:IsInWorld() == true then
                                                 break
@@ -309,7 +309,7 @@ if tblua:IsInWorld() == true then
                                                     tblua:Sleep(1000)
                                                     tblua:PressKey(0x46)
                                                     tblua:Sleep(27000)
-                                                    i = i + 1
+                                                    i = i + 2
                                                 elseif tblua:IsInFight() == false then
                                                     --Release
                                                     tblua:WaitLoop(false)
@@ -328,7 +328,7 @@ if tblua:IsInWorld() == true then
                                                         tblua:Sleep(1000)
                                                         tblua:PressKey(0x46)
                                                         tblua:Sleep(27000)
-                                                        i = i + 1
+                                                        i = i + 2
                                                     elseif tblua:IsInFight() == false then
                                                         --Release
                                                         tblua:WaitLoop(false)
