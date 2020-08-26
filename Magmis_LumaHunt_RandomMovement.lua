@@ -128,11 +128,9 @@ if tblua:IsInWorld() == true then
                         tblua:PressKey(0x71)
                     else
                         while tblua:IsInWorld() == false do
-                            if tblua:IsInFight() == false then
+                            while tblua:IsInFight() == false do
                                 --Release
                                 tblua:WaitLoop(false)
-                                i = i + 1
-                                tblua:Sleep(35000)
                             end
                             if tblua:IsInFight() == true then
                                 --Get Count of TemTem
@@ -267,12 +265,16 @@ if tblua:IsInWorld() == true then
                                     tblua:Sleep(2000)
                                     tblua:PressKey(0x46)
                                     tblua:Sleep(27000)
+                                    i = i + 1
                                     --Check if caught 1
                                     if tblua:IsInFight() == false then
                                         --Release
                                         tblua:WaitLoop(false)
-                                        tblua:Sleep(35000)
-                                        i = i + 1
+                                        tblua:Sleep(20000)
+                                        if tblua:IsInWorld() == true then
+                                            goto fin
+                                        end
+                                        tblua:Sleep(10000)
                                         --end Release
                                         if tblua:IsInFight() == true then
                                             --Catch left tem
@@ -284,14 +286,18 @@ if tblua:IsInWorld() == true then
                                             tblua:Sleep(1000)
                                             tblua:PressKey(0x46)
                                             tblua:Sleep(27000)
+                                            i = i + 1
                                         elseif tblua:IsInFight() == false then
                                             if tblua:IsInWorld() == true then
                                                 break
                                             elseif tblua:IsInFight() == false then
                                                 --Release
                                                 tblua:WaitLoop(false)
-                                                i = i + 1
-                                                tblua:Sleep(35000)
+                                                tblua:Sleep(20000)
+                                                if tblua:IsInWorld() == true then
+                                                    goto fin
+                                                end
+                                                tblua:Sleep(10000)
                                                 --end Release
                                                 if tblua:IsInFight() == true then
                                                     --Catch left tem
@@ -303,11 +309,15 @@ if tblua:IsInWorld() == true then
                                                     tblua:Sleep(1000)
                                                     tblua:PressKey(0x46)
                                                     tblua:Sleep(27000)
+                                                    i = i + 1
                                                 elseif tblua:IsInFight() == false then
                                                     --Release
                                                     tblua:WaitLoop(false)
-                                                    tblua:Sleep(25000)
-                                                    i = i + 1
+                                                    tblua:Sleep(20000)
+                                                    if tblua:IsInWorld() == true then
+                                                        goto fin
+                                                    end
+                                                    tblua:Sleep(10000)
                                                     if tblua:IsInFight() == true then
                                                         --Catch left tem
                                                         tblua:PressKey(0x37)
@@ -318,11 +328,15 @@ if tblua:IsInWorld() == true then
                                                         tblua:Sleep(1000)
                                                         tblua:PressKey(0x46)
                                                         tblua:Sleep(27000)
+                                                        i = i + 1
                                                     elseif tblua:IsInFight() == false then
                                                         --Release
                                                         tblua:WaitLoop(false)
-                                                        tblua:Sleep(25000)
-                                                        i = i + 1
+                                                        tblua:Sleep(20000)
+                                                        if tblua:IsInWorld() == true then
+                                                            goto fin
+                                                        end
+                                                        tblua:Sleep(10000)
                                                         if tblua:IsInFight() == true then
                                                             tblua:TestMessage("run away")
                                                             --Run away 3
@@ -337,6 +351,7 @@ if tblua:IsInWorld() == true then
                                             end
                                         end
                                     end
+                                    ::fin::
                                 else
                                     if tblua:IsInFight() == true then
                                         tblua:TestMessage("Both Catches failed")
@@ -372,6 +387,7 @@ if tblua:IsInWorld() == true then
                                                 tblua:Sleep(1000)
                                                 tblua:PressKey(0x46)
                                                 tblua:Sleep(20000)
+                                                i = i + 1
                                                 if tblua:IsInFight() == false then
                                                     --Release
                                                     tblua:PressKey(0x44)
@@ -382,7 +398,6 @@ if tblua:IsInWorld() == true then
                                                     tblua:Sleep(1000)
                                                     tblua:PressKey(0x46)
                                                     tblua:Sleep(20000)
-                                                    i = i + 1
                                                     break
                                                 else
                                                     --Run away 3
