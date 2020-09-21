@@ -1,5 +1,4 @@
 -- Working
-
 botname = "VM1"
 
 --Importing TemBotLua
