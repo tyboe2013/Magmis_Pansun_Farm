@@ -1,26 +1,49 @@
+-- Working
+
+botname = "VM1"
+
+--Importing TemBotLua
 import("TemBot.Lua.TemBotLua")
 
 --Registering the Temtem Window
 tblua:RegisterTemTemWindow()
-
 tblua:GetAreaColor()
 
-a = 2
+tblua:Sleep(1000)
 
-i = 0
+pansunf = 73
 
-tblua:Sleep(1500)
+pansuns = 134
 
-if tblua:IsInWorld() == true then
+mag = 0
+
+mas = 0
+
+count = 1
+
+a = 0
+
+t = 1
+
+encounter = 0
+
+MovementSwitch = 1
+
+nolag = math.random(50, 150)
+
+if tblua:IsInWorld() == true or tblua:IsInFight() == true then
     while (true) do
-        tblua:Sleep(100)
-        --check pause and logout user settings
-        tblua:CheckPause()
-        tblua:CheckLogout()
         if tblua:IsInWorld() == true then
+            local sexy = math.random(600)
+            tblua:Sleep(sexy)
+            tblua:CheckPause()
+            tblua:CheckLogout()
             while tblua:IsInWorld() == true do
-                --Rebuy TemCards
-                if i > 30 then
+                if encounter > 50 then
+                    magpan = mag * pansunf
+                    maspan = mas * pansuns
+                    pansune = maspan + magpan
+                    tblua:SendTelegramMessage("Going to rebuy TemCards, So far you have made approximately " .. tostring(mags) .. " after " .. tostring(encounter) .. " tems encountered !\nCongratulations ! :D")
                     tblua:KeyDown(0x44)
                     tblua:Sleep(1000)
                     tblua:KeyDown(0x57)
@@ -91,7 +114,7 @@ if tblua:IsInWorld() == true then
                         tblua:PressKey(0x1B)
                         tblua:Sleep(500)
                         a = 0
-                        i = 0
+                        encounter = 0
                         if tblua:IsInWorld() == true then
                             tblua:KeyDown(0x53)
                             tblua:Sleep(500)
@@ -106,318 +129,289 @@ if tblua:IsInWorld() == true then
                         end
                     end
                 end
-                local Sleep = math.random(500, 800)
-                local MovementSwitch = math.random(2)
-                --random top down delay
                 if MovementSwitch == 1 then
-                    tblua:RandomArea()
-                elseif MovementSwitch == 2 then
+                    t = 1
+                    count = 1
                     tblua:CircleArea()
+                    local xd = math.random(100, 300)
+                    tblua:Sleep(xd)
+                    local MovementSwitch = 2
+                elseif MovementSwitch == 2 then
+                    tblua:RandomArea()
+                    local xdd = math.random(600, 1200)
+                    tblua:Sleep(xdd)
+                    local MovementSwitch = 1
                 end
             end
-            tblua:StopMovement()
+        end
 
-            --loop if minimap not detected
-            while tblua:IsInWorld() == false do
-                --if bot is in fight
-                if tblua:IsInFight() == true then
-                    --Luma check positive (message and notification)
-                    if tblua:CheckLuma() == true then
-                        tblua:SendTelegramMessage("Luma Found!")
-                        tblua:TestMessage("Luma Found!")
-                        tblua:PressKey(0x71)
-                    else
-                        while tblua:IsInWorld() == false do
-                            while tblua:IsInFight() == false do
-                                --Release
-                                tblua:WaitLoop(false)
+        --loop if minimap not detected
+        if tblua:IsInWorld() == false then
+            tblua:Sleep(100)
+            tblua:StopMovement()
+            --if bot is in fight
+            if tblua:IsInFight() == true then
+                --Luma check positive (message and notification)
+                local Platypet = math.random(50, 150)
+                tblua:Sleep(Platypet)
+                if tblua:CheckLuma() == true then
+                    if tblua:GetPixelColor(1045, 100) == "0x1E1E1E" then
+                        if tblua:GetPixelColor(777, 65) == "0x1E1E1E" then
+                            encounter = encounter + 2
+                        else
+                            encounter = encounter + 1
+                        end
+                    end
+                    tblua:SendTelegramMessage(
+                        "Luma Found on " ..
+                            tostring(botname) ..
+                                " after " .. tostring(encounter) .. " tems encountered !\nCongratulations ! :D"
+                    )
+                    tblua:TestMessage(
+                        "Luma Found after " .. tostring(encounter) .. " Tems encountered ! Congratulations! :D"
+                    )
+                    tblua:PressKey(0x71)
+                else
+                    local MS = math.random(2)
+                    Zez = MS
+                    --Else no Luma, so run away
+                    if count == 1 then
+                        if tblua:GetPixelColor(1045, 100) == "0x1E1E1E" then
+                            if tblua:GetPixelColor(777, 65) == "0x1E1E1E" then
+                                encounter = encounter + 2
+                            else
+                                encounter = encounter + 1
                             end
-                            if tblua:IsInFight() == true then
-                                --Get Count of TemTem
-                                tblua:GetEnemyCount()
-                                if tblua:GetEnemyCount() == 1 then
-                                    --Attack 1
-                                    tblua:Sleep(1000)
-                                    tblua:PressKey(0x31)
-                                    tblua:Sleep(1000)
-                                    tblua:PressKey(0x46)
-                                    tblua:Sleep(1000)
-                                    tblua:PressKey(0x31)
-                                    tblua:Sleep(1000)
-                                    tblua:PressKey(0x46)
-                                    --Catch 1
-                                    tblua:Sleep(20000)
+                        end
+                        local enemy = tblua:GetEnemyCount()
+                        if enemy == 2 then
+                            tblua:Sleep(nolag)
+                            if tblua:GetPixelColor(839, 22) == "0xFFFFFF" then
+                                mag = mag + 1
+                            elseif tblua:GetPixelColor(828, 20) == "0x1E1E1E" then
+                                mas = mas + 1
+                            end
+                            if tblua:GetPixelColor(1104, 57) == "0x1E1E1E" then
+                                mag = mag + 1
+                            elseif tblua:GetPixelColor(1105, 61) == "0x1E1E1E" then
+                                mas = mas + 1
+                            end
+                        else
+                            if tblua:GetPixelColor(1104, 57) == "0x1E1E1E" then
+                                mag = mag + 1
+                            elseif tblua:GetPixelColor(1105, 61) == "0x1E1E1E" then
+                                mas = mas + 1
+                            end
+                        end
+                        count = 0
+                    end
+                    local RandomSleepy = tblua:GetSleepTime()
+                    local cr = tblua:GetSleepTime()
+                    -- exhausted
+                    if tblua:GetPixelColor(276, 631) == "0xFFFFFF" then
+                        tblua:Sleep(RandomSleepy)
+                        tblua:PressKey(0x36)
+                        tblua:Sleep(RandomSleepy)
+                    else
+                        if tblua:GetPixelColor(777, 65) == "0x1E1E1E" then
+                            if tblua:GetPixelColor(1045, 100) == "0x1E1E1E" then
+                                if t > 3 then
+                                    tblua:Sleep(cr)
                                     tblua:PressKey(0x37)
-                                    tblua:Sleep(1000)
+                                    tblua:Sleep(cr)
                                     tblua:PressKey(0x46)
-                                    tblua:Sleep(1000)
+                                    tblua:Sleep(cr)
+                                    tblua:PressKey(0x46)
+                                    tblua:Sleep(cr)
                                     tblua:PressKey(0x37)
-                                    tblua:Sleep(1000)
+                                    tblua:Sleep(cr)
                                     tblua:PressKey(0x46)
-                                    tblua:Sleep(20000)
-                                    i = i + 2
-                                    --Check if caught 1
-                                    if tblua:IsInFight() == false then
-                                        --end Release
-                                        --Release
-                                        tblua:PressKey(0x44)
-                                        tblua:Sleep(1000)
-                                        tblua:PressKey(0x46)
-                                        tblua:Sleep(1000)
-                                        tblua:PressKey(0x46)
-                                        tblua:Sleep(1000)
-                                        tblua:PressKey(0x46)
-                                        tblua:Sleep(20000)
-                                        break
-                                    else
-                                        --Catch 2
-                                        tblua:Sleep(5000)
-                                        tblua:PressKey(0x37)
-                                        tblua:Sleep(1000)
-                                        tblua:PressKey(0x46)
-                                        tblua:Sleep(1000)
-                                        tblua:PressKey(0x37)
-                                        tblua:Sleep(1000)
-                                        tblua:PressKey(0x46)
-                                        tblua:Sleep(20000)
-                                        i = i + 2
-                                        --end Catch 2
-                                        if tblua:IsInFight() == false then
-                                            --end Release 2
-                                            --Release 2
-                                            tblua:PressKey(0x44)
-                                            tblua:Sleep(1000)
-                                            tblua:PressKey(0x46)
-                                            tblua:Sleep(1000)
-                                            tblua:PressKey(0x46)
-                                            tblua:Sleep(1000)
-                                            tblua:PressKey(0x46)
-                                            tblua:Sleep(20000)
-                                            break
-                                        else
-                                            --Catch 3
-                                            tblua:Sleep(5000)
-                                            tblua:PressKey(0x37)
-                                            tblua:Sleep(1000)
-                                            tblua:PressKey(0x46)
-                                            tblua:Sleep(1000)
-                                            tblua:PressKey(0x37)
-                                            tblua:Sleep(1000)
-                                            tblua:PressKey(0x46)
-                                            tblua:Sleep(20000)
-                                            i = i + 1
-                                            --end Catch 3
-                                            if tblua:IsInFight() == false then
-                                                --end Release 3
-                                                --Release 3
-                                                tblua:PressKey(0x44)
-                                                tblua:Sleep(1000)
-                                                tblua:PressKey(0x46)
-                                                tblua:Sleep(1000)
-                                                tblua:PressKey(0x46)
-                                                tblua:Sleep(1000)
-                                                tblua:PressKey(0x46)
-                                                tblua:Sleep(20000)
-                                                break
-                                            else
-                                                --Run away 3
-                                                tblua:PressKey(0x38)
-                                                tblua:Sleep(1000)
-                                                tblua:PressKey(0x38)
-                                                tblua:Sleep(10000)
-                                                break
-                                            end
-                                        end
-                                    end
-                                elseif tblua:GetEnemyCount() == 2 then
-                                    --Attack Right Tem
-                                    tblua:Sleep(1000)
-                                    tblua:PressKey(0x31)
-                                    tblua:Sleep(1000)
+                                    tblua:Sleep(cr)
                                     tblua:PressKey(0x46)
-                                    tblua:Sleep(1000)
-                                    tblua:PressKey(0x31)
-                                    tblua:Sleep(1000)
-                                    tblua:PressKey(0x46)
-                                    tblua:Sleep(20000)
-                                    --Attack Left Tem
-                                    tblua:Sleep(1000)
-                                    tblua:PressKey(0x31)
-                                    tblua:Sleep(1000)
-                                    tblua:PressKey(0x57)
-                                    tblua:Sleep(1000)
-                                    tblua:PressKey(0x46)
-                                    tblua:Sleep(1000)
-                                    tblua:PressKey(0x31)
-                                    tblua:Sleep(1000)
-                                    tblua:PressKey(0x46)
-                                    tblua:Sleep(20000)
-                                    --Catch right tem
+                                    t = t + 1
+                                elseif t == 3 then
+                                    tblua:Sleep(cr)
                                     tblua:PressKey(0x37)
-                                    tblua:Sleep(2000)
+                                    tblua:Sleep(cr)
+                                    tblua:PressKey(0x45)
+                                    tblua:Sleep(cr)
                                     tblua:PressKey(0x46)
-                                    tblua:Sleep(2000)
+                                    tblua:Sleep(cr)
+                                    tblua:PressKey(0x26)
+                                    tblua:Sleep(cr)
                                     tblua:PressKey(0x46)
-                                    tblua:Sleep(2000)
+                                    tblua:Sleep(cr)
                                     tblua:PressKey(0x37)
-                                    tblua:Sleep(2000)
+                                    tblua:Sleep(cr)
                                     tblua:PressKey(0x46)
-                                    tblua:Sleep(2000)
+                                    tblua:Sleep(cr)
                                     tblua:PressKey(0x46)
-                                    tblua:Sleep(27000)
-                                    i = i + 2
-                                    --Check if caught 1
-                                    if tblua:IsInFight() == false then
-                                        --Release
-                                        tblua:WaitLoop(false)
-                                        tblua:Sleep(20000)
-                                        if tblua:IsInWorld() == true then
-                                            goto fin
-                                        end
-                                        tblua:Sleep(10000)
-                                        --end Release
-                                        if tblua:IsInFight() == true then
-                                            --Catch left tem
-                                            tblua:PressKey(0x37)
-                                            tblua:Sleep(1000)
-                                            tblua:PressKey(0x46)
-                                            tblua:Sleep(1000)
-                                            tblua:PressKey(0x37)
-                                            tblua:Sleep(1000)
-                                            tblua:PressKey(0x46)
-                                            tblua:Sleep(27000)
-                                            i = i + 2
-                                        elseif tblua:IsInFight() == false then
-                                            if tblua:IsInWorld() == true then
-                                                break
-                                            elseif tblua:IsInFight() == false then
-                                                --Release
-                                                tblua:WaitLoop(false)
-                                                tblua:Sleep(20000)
-                                                if tblua:IsInWorld() == true then
-                                                    goto fin
-                                                end
-                                                tblua:Sleep(10000)
-                                                --end Release
-                                                if tblua:IsInFight() == true then
-                                                    --Catch left tem
-                                                    tblua:PressKey(0x37)
-                                                    tblua:Sleep(1000)
-                                                    tblua:PressKey(0x46)
-                                                    tblua:Sleep(1000)
-                                                    tblua:PressKey(0x37)
-                                                    tblua:Sleep(1000)
-                                                    tblua:PressKey(0x46)
-                                                    tblua:Sleep(27000)
-                                                    i = i + 2
-                                                elseif tblua:IsInFight() == false then
-                                                    --Release
-                                                    tblua:WaitLoop(false)
-                                                    tblua:Sleep(20000)
-                                                    if tblua:IsInWorld() == true then
-                                                        goto fin
-                                                    end
-                                                    tblua:Sleep(10000)
-                                                    if tblua:IsInFight() == true then
-                                                        --Catch left tem
-                                                        tblua:PressKey(0x37)
-                                                        tblua:Sleep(1000)
-                                                        tblua:PressKey(0x46)
-                                                        tblua:Sleep(1000)
-                                                        tblua:PressKey(0x37)
-                                                        tblua:Sleep(1000)
-                                                        tblua:PressKey(0x46)
-                                                        tblua:Sleep(27000)
-                                                        i = i + 2
-                                                    elseif tblua:IsInFight() == false then
-                                                        --Release
-                                                        tblua:WaitLoop(false)
-                                                        tblua:Sleep(20000)
-                                                        if tblua:IsInWorld() == true then
-                                                            goto fin
-                                                        end
-                                                        tblua:Sleep(10000)
-                                                        if tblua:IsInFight() == true then
-                                                            tblua:TestMessage("run away")
-                                                            --Run away 3
-                                                            tblua:PressKey(0x38)
-                                                            tblua:Sleep(1000)
-                                                            tblua:PressKey(0x38)
-                                                            tblua:Sleep(10000)
-                                                            break
-                                                        end
-                                                    end
-                                                end
-                                            end
-                                        end
-                                    end
-                                    ::fin::
-                                else
-                                    if tblua:IsInFight() == true then
-                                        tblua:TestMessage("Both Catches failed")
-                                        --Catch left tem
-                                        tblua:PressKey(0x37)
-                                        tblua:Sleep(1000)
-                                        tblua:PressKey(0x46)
-                                        tblua:Sleep(1000)
-                                        tblua:PressKey(0x37)
-                                        tblua:Sleep(1000)
-                                        tblua:PressKey(0x46)
-                                        tblua:Sleep(20000)
-                                        if tblua:IsInFight() == false then
-                                            --Release
-                                            tblua:PressKey(0x44)
-                                            tblua:Sleep(1000)
-                                            tblua:PressKey(0x46)
-                                            tblua:Sleep(1000)
-                                            tblua:PressKey(0x46)
-                                            tblua:Sleep(1000)
-                                            tblua:PressKey(0x46)
-                                            tblua:Sleep(20000)
-                                            i = i + 1
-                                            break
-                                            --end Release
-                                            if tblua:IsInFight() == true then
-                                                --Catch left tem
-                                                tblua:PressKey(0x37)
-                                                tblua:Sleep(1000)
-                                                tblua:PressKey(0x46)
-                                                tblua:Sleep(1000)
-                                                tblua:PressKey(0x37)
-                                                tblua:Sleep(1000)
-                                                tblua:PressKey(0x46)
-                                                tblua:Sleep(20000)
-                                                i = i + 1
-                                                if tblua:IsInFight() == false then
-                                                    --Release
-                                                    tblua:PressKey(0x44)
-                                                    tblua:Sleep(1000)
-                                                    tblua:PressKey(0x46)
-                                                    tblua:Sleep(1000)
-                                                    tblua:PressKey(0x46)
-                                                    tblua:Sleep(1000)
-                                                    tblua:PressKey(0x46)
-                                                    tblua:Sleep(20000)
-                                                    break
-                                                else
-                                                    --Run away 3
-                                                    tblua:PressKey(0x38)
-                                                    tblua:Sleep(1000)
-                                                    tblua:PressKey(0x38)
-                                                    tblua:Sleep(10000)
-                                                    break
-                                                end
-                                            end
-                                        end
-                                    end
+                                    t = t + 1
+                                elseif t == 2 then
+                                    tblua:Sleep(cr)
+                                    tblua:PressKey(0x31)
+                                    tblua:Sleep(cr)
+                                    tblua:PressKey(0x26)
+                                    tblua:Sleep(cr)
+                                    tblua:PressKey(0x46)
+                                    tblua:Sleep(cr)
+                                    tblua:PressKey(0x31)
+                                    tblua:Sleep(cr)
+                                    tblua:PressKey(0x46)
+                                    t = t + 1
+                                elseif t == 1 then
+                                    tblua:Sleep(cr)
+                                    tblua:PressKey(0x31)
+                                    tblua:Sleep(cr)
+                                    tblua:PressKey(0x46)
+                                    tblua:Sleep(cr)
+                                    tblua:PressKey(0x31)
+                                    tblua:Sleep(cr)
+                                    tblua:PressKey(0x46)
+                                    t = t + 1
                                 end
+                            else
+                                if t > 2 then
+                                    tblua:Sleep(cr)
+                                    tblua:PressKey(0x37)
+                                    tblua:Sleep(cr)
+                                    tblua:PressKey(0x46)
+                                    tblua:Sleep(cr)
+                                    tblua:PressKey(0x37)
+                                    tblua:Sleep(cr)
+                                    tblua:PressKey(0x46)
+                                    t = t + 1
+                                elseif t == 2 then
+                                    tblua:Sleep(cr)
+                                    tblua:PressKey(0x37)
+                                    tblua:Sleep(cr)
+                                    tblua:PressKey(0x45)
+                                    tblua:Sleep(cr)
+                                    tblua:PressKey(0x46)
+                                    tblua:Sleep(cr)
+                                    tblua:PressKey(0x37)
+                                    tblua:Sleep(cr)
+                                    tblua:PressKey(0x46)
+                                    t = t + 1
+                                elseif t == 1 then
+                                    tblua:Sleep(cr)
+                                    tblua:PressKey(0x31)
+                                    tblua:Sleep(cr)
+                                    tblua:PressKey(0x46)
+                                    tblua:Sleep(cr)
+                                    tblua:PressKey(0x31)
+                                    tblua:Sleep(cr)
+                                    tblua:PressKey(0x46)
+                                    t = t + 1
+                                end
+                            end
+                        elseif tblua:GetPixelColor(1045, 100) == "0x1E1E1E" then
+                            if t > 2 then
+                                tblua:Sleep(cr)
+                                tblua:PressKey(0x37)
+                                tblua:Sleep(cr)
+                                tblua:PressKey(0x46)
+                                tblua:Sleep(cr)
+                                tblua:PressKey(0x37)
+                                tblua:Sleep(cr)
+                                tblua:PressKey(0x46)
+                                t = t + 1
+                            elseif t == 2 then
+                                tblua:Sleep(cr)
+                                tblua:PressKey(0x37)
+                                tblua:Sleep(cr)
+                                tblua:PressKey(0x45)
+                                tblua:Sleep(cr)
+                                tblua:PressKey(0x46)
+                                tblua:Sleep(cr)
+                                tblua:PressKey(0x37)
+                                tblua:Sleep(cr)
+                                tblua:PressKey(0x46)
+                                t = t + 1
+                            elseif t == 1 then
+                                tblua:Sleep(cr)
+                                tblua:PressKey(0x31)
+                                tblua:Sleep(cr)
+                                tblua:PressKey(0x46)
+                                tblua:Sleep(cr)
+                                tblua:PressKey(0x31)
+                                tblua:Sleep(cr)
+                                tblua:PressKey(0x46)
+                                t = t + 1
                             end
                         end
                     end
+                end
+            else
+                local crx = tblua:GetSleepTime()
+                local crxxx = math.random(1534, 2857)
+                -- Catch screen Release
+                if tblua:GetPixelColor(750, 530) == "0x1CD1D3" then
+                    -- Skill learn
+                    tblua:Sleep(crxxx)
+                    tblua:PressKey(0x27)
+                    tblua:Sleep(crx)
+                    tblua:PressKey(0x46)
+                    tblua:Sleep(crx)
+                    tblua:PressKey(0x46)
+                    tblua:Sleep(crx)
+                elseif tblua:GetPixelColor(215, 255) == "0x1CD1D3" then
+                    -- Exp screen F
+                    tblua:PressKey(0x1B)
+                    tblua:Sleep(crx)
+                elseif tblua:GetPixelColor(590, 245) == "0x1CD1D3" then
+                    -- Swap dead tem
+                    tblua:PressKey(0x1B)
+                    tblua:Sleep(crx)
+                elseif tblua:GetPixelColor(1180, 455) == "0x1E1E1E" then
+                    local swap = math.random(4)
+                    if swap == 4 then
+                        tblua:PressKey(0x28)
+                        tblua:Sleep(crx)
+                        tblua:PressKey(0x28)
+                        tblua:Sleep(crx)
+                        tblua:PressKey(0x28)
+                        tblua:Sleep(crx)
+                        tblua:PressKey(0x28)
+                        tblua:Sleep(crx)
+                        tblua:PressKey(0x28)
+                        tblua:Sleep(crx)
+                        tblua:PressKey(0x46)
+                        tblua:Sleep(crx)
+                    elseif swap == 3 then
+                        tblua:PressKey(0x28)
+                        tblua:Sleep(crx)
+                        tblua:PressKey(0x28)
+                        tblua:Sleep(crx)
+                        tblua:PressKey(0x28)
+                        tblua:Sleep(crx)
+                        tblua:PressKey(0x28)
+                        tblua:Sleep(crx)
+                        tblua:PressKey(0x46)
+                        tblua:Sleep(crx)
+                    elseif swap == 2 then
+                        tblua:PressKey(0x28)
+                        tblua:Sleep(crx)
+                        tblua:PressKey(0x28)
+                        tblua:Sleep(crx)
+                        tblua:PressKey(0x28)
+                        tblua:Sleep(crx)
+                        tblua:PressKey(0x46)
+                        tblua:Sleep(crx)
+                    elseif swap == 1 then
+                        tblua:PressKey(0x28)
+                        tblua:Sleep(crx)
+                        tblua:PressKey(0x28)
+                        tblua:Sleep(crx)
+                        tblua:PressKey(0x46)
+                        tblua:Sleep(crx)
+                    end
+                else
+                    tblua:Sleep(crx)
                 end
             end
         end
     end
 else
-    tblua:TestMessage("Error: Not ready to start the script")
+    tblua:TestMessage("Error: Must see minimap to start the script")
 end
