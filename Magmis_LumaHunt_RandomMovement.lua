@@ -1,7 +1,4 @@
 -- Working
-botname = "VM1"
-
---Importing TemBotLua
 import("TemBot.Lua.TemBotLua")
 
 --Registering the Temtem Window
@@ -42,7 +39,7 @@ if tblua:IsInWorld() == true or tblua:IsInFight() == true then
                     magpan = mag * pansunf
                     maspan = mas * pansuns
                     pansune = maspan + magpan
-                    tblua:SendTelegramMessage("Going to rebuy TemCards, So far you have made approximately " .. tostring(mags) .. " after " .. tostring(encounter) .. " tems encountered !\nCongratulations ! :D")
+                    tblua:SendTelegramMessage("Going to rebuy TemCards, So far you have made approximately " .. tostring(pansune) .. " after " .. tostring(encounter) .. " tems encountered !\nCongratulations ! :D")
                     tblua:KeyDown(0x44)
                     tblua:Sleep(1000)
                     tblua:KeyDown(0x57)
@@ -162,9 +159,7 @@ if tblua:IsInWorld() == true or tblua:IsInFight() == true then
                         end
                     end
                     tblua:SendTelegramMessage(
-                        "Luma Found on " ..
-                            tostring(botname) ..
-                                " after " .. tostring(encounter) .. " tems encountered !\nCongratulations ! :D"
+                        "Luma Found after " .. tostring(encounter) .. " tems encountered !\nCongratulations ! :D"
                     )
                     tblua:TestMessage(
                         "Luma Found after " .. tostring(encounter) .. " Tems encountered ! Congratulations! :D"
