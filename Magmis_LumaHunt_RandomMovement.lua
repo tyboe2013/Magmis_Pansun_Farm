@@ -1,4 +1,8 @@
 -- Working
+
+botname = "VM1"
+
+--Importing TemBotLua
 import("TemBot.Lua.TemBotLua")
 
 --Registering the Temtem Window
@@ -39,7 +43,7 @@ if tblua:IsInWorld() == true or tblua:IsInFight() == true then
                     magpan = mag * pansunf
                     maspan = mas * pansuns
                     pansune = maspan + magpan
-                    tblua:SendTelegramMessage("Going to rebuy TemCards, So far you have made approximately " .. tostring(pansune) .. " after " .. tostring(encounter) .. " tems encountered !\nCongratulations ! :D")
+                    tblua:SendTelegramMessage("Going to rebuy TemCards, So far you have made approximately " .. tostring(mags) .. " after " .. tostring(encounter) .. " tems encountered !\nCongratulations ! :D")
                     tblua:KeyDown(0x44)
                     tblua:Sleep(1000)
                     tblua:KeyDown(0x57)
@@ -53,9 +57,9 @@ if tblua:IsInWorld() == true or tblua:IsInFight() == true then
                         tblua:Sleep(500)
                         tblua:PressKey(0x57)
                         tblua:Sleep(500)
-                        tblua:KeyDown(0x25)
+                        tblua:KeyDown(0x41)
                         tblua:Sleep(400)
-                        tblua:PressKey(0x25)
+                        tblua:PressKey(0x41)
                         tblua:KeyDown(0x57)
                         tblua:Sleep(1000)
                         tblua:PressKey(0x57)
@@ -72,7 +76,7 @@ if tblua:IsInWorld() == true or tblua:IsInFight() == true then
                         tblua:Sleep(500)
                         tblua:PressKey(0x44)
                         tblua:PressKey(0x57)
-                        tblua:PressKey(0x25)
+                        tblua:PressKey(0x41)
                         tblua:Sleep(10000)
                         tblua:KeyDown(0x44)
                         tblua:Sleep(1000)
@@ -159,7 +163,9 @@ if tblua:IsInWorld() == true or tblua:IsInFight() == true then
                         end
                     end
                     tblua:SendTelegramMessage(
-                        "Luma Found after " .. tostring(encounter) .. " tems encountered !\nCongratulations ! :D"
+                        "Luma Found on " ..
+                            tostring(botname) ..
+                                " after " .. tostring(encounter) .. " tems encountered !\nCongratulations ! :D"
                     )
                     tblua:TestMessage(
                         "Luma Found after " .. tostring(encounter) .. " Tems encountered ! Congratulations! :D"
@@ -231,7 +237,7 @@ if tblua:IsInWorld() == true or tblua:IsInFight() == true then
                                     tblua:Sleep(cr)
                                     tblua:PressKey(0x46)
                                     tblua:Sleep(cr)
-                                    tblua:PressKey(0x26)
+                                    tblua:PressKey(0x57)
                                     tblua:Sleep(cr)
                                     tblua:PressKey(0x46)
                                     tblua:Sleep(cr)
@@ -245,7 +251,7 @@ if tblua:IsInWorld() == true or tblua:IsInFight() == true then
                                     tblua:Sleep(cr)
                                     tblua:PressKey(0x31)
                                     tblua:Sleep(cr)
-                                    tblua:PressKey(0x26)
+                                    tblua:PressKey(0x57)
                                     tblua:Sleep(cr)
                                     tblua:PressKey(0x46)
                                     tblua:Sleep(cr)
@@ -343,7 +349,7 @@ if tblua:IsInWorld() == true or tblua:IsInFight() == true then
                 if tblua:GetPixelColor(750, 530) == "0x1CD1D3" then
                     -- Skill learn
                     tblua:Sleep(crxxx)
-                    tblua:PressKey(0x27)
+                    tblua:PressKey(0x44)
                     tblua:Sleep(crx)
                     tblua:PressKey(0x46)
                     tblua:Sleep(crx)
@@ -360,42 +366,42 @@ if tblua:IsInWorld() == true or tblua:IsInFight() == true then
                 elseif tblua:GetPixelColor(1180, 455) == "0x1E1E1E" then
                     local swap = math.random(4)
                     if swap == 4 then
-                        tblua:PressKey(0x28)
+                        tblua:PressKey(0x53)
                         tblua:Sleep(crx)
-                        tblua:PressKey(0x28)
+                        tblua:PressKey(0x53)
                         tblua:Sleep(crx)
-                        tblua:PressKey(0x28)
+                        tblua:PressKey(0x53)
                         tblua:Sleep(crx)
-                        tblua:PressKey(0x28)
+                        tblua:PressKey(0x53)
                         tblua:Sleep(crx)
-                        tblua:PressKey(0x28)
+                        tblua:PressKey(0x53)
                         tblua:Sleep(crx)
                         tblua:PressKey(0x46)
                         tblua:Sleep(crx)
                     elseif swap == 3 then
-                        tblua:PressKey(0x28)
+                        tblua:PressKey(0x53)
                         tblua:Sleep(crx)
-                        tblua:PressKey(0x28)
+                        tblua:PressKey(0x53)
                         tblua:Sleep(crx)
-                        tblua:PressKey(0x28)
+                        tblua:PressKey(0x53)
                         tblua:Sleep(crx)
-                        tblua:PressKey(0x28)
+                        tblua:PressKey(0x53)
                         tblua:Sleep(crx)
                         tblua:PressKey(0x46)
                         tblua:Sleep(crx)
                     elseif swap == 2 then
-                        tblua:PressKey(0x28)
+                        tblua:PressKey(0x53)
                         tblua:Sleep(crx)
-                        tblua:PressKey(0x28)
+                        tblua:PressKey(0x53)
                         tblua:Sleep(crx)
-                        tblua:PressKey(0x28)
+                        tblua:PressKey(0x53)
                         tblua:Sleep(crx)
                         tblua:PressKey(0x46)
                         tblua:Sleep(crx)
                     elseif swap == 1 then
-                        tblua:PressKey(0x28)
+                        tblua:PressKey(0x53)
                         tblua:Sleep(crx)
-                        tblua:PressKey(0x28)
+                        tblua:PressKey(0x53)
                         tblua:Sleep(crx)
                         tblua:PressKey(0x46)
                         tblua:Sleep(crx)
